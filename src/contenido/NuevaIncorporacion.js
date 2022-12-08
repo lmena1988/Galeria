@@ -7,10 +7,21 @@ export default function NuevaIncorporacion () {
 
   const[vincorporacion,setVincorporacion]=React.useState('')
   const[descripcion,setDescripcion]=React.useState('')
+  const[artistai,setArtista]=React.useState('')
+
+  const[usuario,setUsuario]=React.useState([])
+  React.useEffect(()=>{
+    fetch("http://localhost:8080/hola/4")
+    .then(res=>res.json())
+    .then((result)=>{
+      setUsuario(result);
+    }
+  )
+  },[])
 
   const handleClick=(e)=>{
     e.preventDefault()
-    const incorporacion={vincorporacion,descripcion}
+    const incorporacion={vincorporacion,descripcion,artistai}
     console.log(incorporacion)
     fetch("http://localhost:8080/Incorporacion",{
       method:"POST",
@@ -78,11 +89,12 @@ export default function NuevaIncorporacion () {
           <div className="row">
             <div className="col-12">
               <div className="form-group">
-                <select className="form-control" name="usuario_privilegio_reg">
+                <select className="form-control" name="usuario_privilegio_reg"  onChange={(e)=>setArtista(e.target.value)}>
                   <option value selected disabled>Seleccione un Artista</option>
-                  <option value={1}>Artista 1</option>
-                  <option value={2}>Artista 2</option>
-                  <option value={3}>Artista 3</option>
+                  {usuario.map(incorporacion=>(
+                  <option>{incorporacion.username}</option>
+                  ))
+                  } 
                 </select>
               </div>
             </div>

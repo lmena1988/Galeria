@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
-export default class ConfirmarContraseña extends Component {
-  render() {
+export default function ConfirmarContraseña () {
     return (
       <div>
         <div>
@@ -204,4 +203,4 @@ export default class ConfirmarContraseña extends Component {
       </div>
     );
   }
-}
+

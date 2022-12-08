@@ -68,7 +68,7 @@ export default function ListarIncorporaciones () {
             <td>{incorporaciones.id}</td>
             <td>{incorporaciones.descripcion}</td>
             <td>{incorporaciones.vincorporacion}</td>
-            <td>{incorporaciones.descripcion}</td>
+            <td>{incorporaciones.artistai}</td>
             <td>
               <Link to={`/ActualizarIncorporacion/${incorporaciones.id}`} className="btn btn-success">
                 <i className="fas fa-sync-alt" />	

@@ -56,10 +56,10 @@ export default function ListarContrato () {
           <tr className="text-center roboto-medium">
             <th>#</th>
             <th>DESCRIPCIÓN</th>
-            <th>TIPO DE CONTRATO</th>
+            <th>PLAZO</th>
             <th>SALA</th>
             <th>ARTISTA</th>
-            <th>PLAZO</th>
+            <th>TIPO CONTRATO</th>
             <th>VALOR</th>
             <th>ACTUALIZAR</th>
             <th>ELIMINAR</th>
@@ -70,10 +70,10 @@ export default function ListarContrato () {
           <tr className="text-center">
             <td>{contratos.id}</td>
             <td>{contratos.descripcion}</td>
-            <td>{contratos.sala}</td>
-            <td>{contratos.tipocontrato}</td>
-            <td>{contratos.artista}</td>
             <td>{contratos.plazo}</td>
+            <td>{contratos.sala}</td>
+            <td>{contratos.artista}</td>
+            <td>{contratos.tipocontrato}</td>
             <td>{contratos.valor}</td>
             <td>
               <Link to={`/ActualizarContrato/${contratos.id}`} className="btn btn-success">

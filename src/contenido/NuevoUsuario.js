@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '../Header';
 import NavBar from '../NavBar';
 
@@ -159,9 +159,9 @@ export default function NuevoUsuario() {
               <div className="form-group">
                 <select className="form-control" name="usuario_privilegio_reg" value={privilegio} onChange={(e)=>setPrivilegio(e.target.value)} >
                   <option value selected disabled>Seleccione una opción</option>
-                  <option value={1}>Administrador</option>
+                  <option value={1}>Artista</option>
                   <option value={2}>Editor</option>
-                  <option value={3}>Artista</option>
+                  <option value={3}>Administrador</option>
                 </select>
               </div>
             </div>

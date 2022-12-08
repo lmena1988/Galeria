@@ -1,10 +1,102 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import axios from "axios";
+import React, {  useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Header from '../Header';
 import NavBar from '../NavBar';
 
-export default class ActualizarUsuario extends Component {
-  render() {
+export default function ActualizarUsuario () {
+  let navigate = useNavigate();
+
+  const { id } = useParams();
+
+  const[nombres,setNombre]=React.useState('')
+  const[sala,setSala]=React.useState('')
+  const[artista,setArtista]=React.useState('')
+  const[año,setAño]=React.useState('')
+  const[categoria,setCategoria]=React.useState('')
+  const[precio,setPrecio]=React.useState('')
+  const[pintura,setPintura]=React.useState('')
+  const[producto,setProducto]=React.useState([])
+
+
+  const[usuario,setUsuario]=React.useState([])
+  React.useEffect(()=>{
+    fetch("http://localhost:8080/hola/4")
+    .then(res=>res.json())
+    .then((result)=>{
+      setUsuario(result);
+    }
+  )
+  },[])
+
+  const[ssala,setSsala]=React.useState([])
+  React.useEffect(()=>{
+    fetch("http://localhost:8080/salas")
+    .then(res=>res.json())
+    .then((result)=>{
+      setSsala(result);
+    }
+  )
+  },[])
+
+  const[precios,setPrecios]=React.useState([])
+  React.useEffect(()=>{
+    fetch("http://localhost:8080/precios")
+    .then(res=>res.json())
+    .then((result)=>{
+      setPrecios(result);
+    }
+  )
+  },[])
+  const[pepito,setPepito]=React.useState('')
+  React.useEffect(()=>{
+    fetch("http://localhost:8080/categorias")
+    .then(res=>res.json())
+    .then((result)=>{
+      setPepito(result);
+    }
+  )
+  },[])
+
+  const convertir=(archivos)=>{
+    Array.from(archivos).forEach(archivo=>{
+      var reader = new FileReader();
+      reader.readAsDataURL(archivo);
+      reader.onload=function(){
+        var arrayAuxiliar=[];
+        var base64 = reader.result;
+
+        arrayAuxiliar=base64.split(',');
+        console.log(arrayAuxiliar[1]);
+        setPintura(arrayAuxiliar[1]);
+      }
+      
+    })
+  }
+
+  const handleClick=(e)=>{
+    e.preventDefault()
+    const producto={nombres,sala,artista,año,categoria,precio,pintura}
+    console.log(producto)
+    fetch(`http://localhost:8080/editProducto/${id}`,{
+      method:"PUT",
+      headers:{"content-type":"application/json"},
+      body:JSON.stringify(producto)
+
+    }).then(()=>{
+      console.log("Producto editado")
+    })
+  }
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  const loadUser = async () => {
+    const result = await axios.get(`http://localhost:8080/getP/${id}`);
+    setProducto(result.data);
+  };
+
 	return (
 	  <div>
       <Header/>
@@ -44,19 +136,24 @@ export default class ActualizarUsuario extends Component {
             <div className="col-12 col-md-4">
               <div className="form-group">
                 <label htmlFor="usuario_nombre" className="bmd-label-floating">Nombres</label>
-                <input type="text" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,35}" className="form-control" name="usuario_nombre_reg" id="usuario_nombre" maxLength={35} />
+                <input type="text" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,35}" className="form-control" name="usuario_nombre_reg" id="usuario_nombre" maxLength={35}
+                defaultValue={producto.nombres}
+                onChange={(e)=>setNombre(e.target.value)} />
               </div>
             </div>
             <div className="col-12 col-md-2">
               <div className="form-group">
                 <label htmlFor="usuario_apellido" className="bmd-label-floating">Año Creación</label>
-                <input type="date" pattern="" className="form-control" name="usuario_apellido_reg" id="usuario_apellido" maxLength={35} />
+                <input type="date" pattern="" className="form-control" name="usuario_apellido_reg" id="usuario_apellido" maxLength={35}
+                defaultValue={producto.año}
+                onChange={(e)=>setAño(e.target.value)} />
               </div>
             </div>
             <div className="col-12 col-md-6">
               <div className="form-group">
                 <label htmlFor="usuario_direccion" className="bmd-label-floating">Pintura</label>
-                <input type="file" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,190}" className="form-control" name="usuario_direccion_reg" id="usuario_direccion" maxLength={190} />
+                <input type="file" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,190}" className="form-control" name="usuario_direccion_reg" id="usuario_direccion" maxLength={190}
+                onChange={(e)=>convertir(e.target.files)} />
               </div>
             </div>
           </div>
@@ -69,11 +166,12 @@ export default class ActualizarUsuario extends Component {
           <div className="row">
             <div className="col-12">
               <div className="form-group">
-                <select className="form-control" name="usuario_privilegio_reg">
+                <select className="form-control" name="usuario_privilegio_reg" onChange={(e)=>setArtista(e.target.value)}>
                   <option value selected disabled>Seleccione al Artista</option>
-                  <option value={1}>Artista 1</option>
-                  <option value={2}>Artista 2</option>
-                  <option value={3}>Artista 3</option>
+                  {usuario.map(contratos=>(
+                  <option>{contratos.username}</option>
+                  ))
+                  }
                 </select>
               </div>
             </div>
@@ -87,11 +185,9 @@ export default class ActualizarUsuario extends Component {
           <div className="row">
             <div className="col-12">
               <div className="form-group">
-                <select className="form-control" name="usuario_privilegio_reg">
+                <select className="form-control" name="usuario_privilegio_reg" onChange={(e)=>setCategoria(e.target.value)}>
                   <option value selected disabled>Seleccione una categoría</option>
-                  <option value={1}>Categoría 1</option>
-                  <option value={2}>Categoría 2</option>
-                  <option value={3}>Categoría 3</option>
+                  
                 </select>
               </div>
             </div>
@@ -105,11 +201,12 @@ export default class ActualizarUsuario extends Component {
           <div className="row">
             <div className="col-5">
               <div className="form-group">
-                <select className="form-control" name="usuario_privilegio_reg">
+                <select className="form-control" name="usuario_privilegio_reg" onChange={(e)=>setPrecio(e.target.value)}>
                   <option value selected disabled>Seleccione un Precio</option>
-                  <option value={1}>Precio 1</option>
-                  <option value={2}>Precio 2</option>
-                  <option value={3}>Precio 3</option>
+                  {precios.map(contratop=>(
+                  <option>{contratop.valor}</option>
+                  ))
+                  }
                 </select>
               </div>
             </div>
@@ -123,11 +220,12 @@ export default class ActualizarUsuario extends Component {
           <div className="row">
             <div className="col-5">
               <div className="form-group">
-                <select className="form-control" name="usuario_privilegio_reg">
+                <select className="form-control" name="usuario_privilegio_reg" onChange={(e)=>setSala(e.target.value)}>
                   <option value selected disabled>Seleccione una Sala de Exhibición</option>
-                  <option value={1}>Sala 1</option>
-                  <option value={2}>Sala 2</option>
-                  <option value={3}>Sala 3</option>
+                  {ssala.map(ssalas=>(
+                  <option>{ssalas.nsala}</option>
+                  ))
+                }
                 </select>
               </div>
             </div>
@@ -135,7 +233,7 @@ export default class ActualizarUsuario extends Component {
         </div>
       </fieldset>
       <p className="text-center" style={{marginTop: 40}}>
-        <button type="submit" className="btn btn-raised btn-success btn-sm"><i className="fas fa-sync-alt" /> &nbsp; ACTUALIZAR</button>
+        <button type="submit" onClick={handleClick} className="btn btn-raised btn-success btn-sm"><i className="fas fa-sync-alt" /> &nbsp; ACTUALIZAR</button>
       </p>
     </form>
     <div className="alert alert-danger text-center" role="alert">
@@ -148,4 +246,4 @@ export default class ActualizarUsuario extends Component {
 	  </div>
 	);
   }
-}
+

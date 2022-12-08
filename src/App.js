@@ -46,13 +46,16 @@ import ProductoUnico from "./contenido/ProductoUnico";
 import RecuperarContraseña from "./contenido/RecuperarContraseña";
 import ConfirmarContraseña from "./contenido/ConfirmarContraseña";
 import NuevaContraseña from "./contenido/NuevaContraseña";
+import ImageUpload from "./ImageUpload";
 
-// Initialize Google Analytics
 
 
 function App() {
   return (
+    
     <Router>
+
+
       <Routes>
         <Route path="/" element={<Inicio/>}/>
         <Route path="/Dashboard" element={<Dashboard/>}/>
@@ -62,7 +65,7 @@ function App() {
         <Route path="/BuscarUsuario" element={<BuscarUsuario/>}/>
         <Route path="/NuevoProducto" element={<NuevoProducto/>}/>
         <Route path="/ListarProductos" element={<ListarProductos/>}/>
-        <Route path="/ActualizarProducto" element={<ActualizarProducto/>}/>
+        <Route path="/ActualizarProducto/:id" element={<ActualizarProducto/>}/>
         <Route path="/BuscarProducto" element={<BuscarProducto/>}/>
         <Route path="/NuevaCategoria" element={<NuevaCategoria/>}/>
         <Route path="/ListarCategorias" element={<ListarCategorias/>}/>
@@ -102,6 +105,8 @@ function App() {
         <Route path="/NuevaContraseña" element={<NuevaContraseña/>} />
       </Routes>
     </Router>
+
+    
   );
 }
 

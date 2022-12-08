@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Header from '../Header';
 import NavBar from '../NavBar';
 
@@ -60,6 +60,7 @@ export default function ListarCategorias () {
             <th>SALA</th>
             <th>ARTISTA</th>
             <th>AÑO</th>
+            <th>pintura</th>
             <th>CATEGORÍA</th>
             <th>PRECIO</th>
             <th>ACTUALIZAR</th>
@@ -74,6 +75,7 @@ export default function ListarCategorias () {
           <td>{producto.sala}</td>
           <td>{producto.artista}</td>
           <td>{producto.año}</td>
+          <td><img src={`data:image;base64,${producto.pintura}`} width="50" height="50"/></td>
           <td>{producto.categoria}</td>
           <td>{producto.precio}</td>
             <td>
@@ -97,13 +99,13 @@ export default function ListarCategorias () {
     <nav aria-label="Page navigation example">
       <ul className="pagination justify-content-center">
         <li className="page-item disabled">
-          <a className="page-link" href="#" tabIndex={-1}>Previous</a>
+          <a className="page-link" href="" tabIndex={-1}>Previous</a>
         </li>
-        <li className="page-item"><a className="page-link" href="#">1</a></li>
-        <li className="page-item"><a className="page-link" href="#">2</a></li>
-        <li className="page-item"><a className="page-link" href="#">3</a></li>
+        <li className="page-item"><a className="page-link" href="">1</a></li>
+        <li className="page-item"><a className="page-link" href="">2</a></li>
+        <li className="page-item"><a className="page-link" href="">3</a></li>
         <li className="page-item">
-          <a className="page-link" href="#">Next</a>
+          <a className="page-link" href="">Next</a>
         </li>
       </ul>
     </nav>

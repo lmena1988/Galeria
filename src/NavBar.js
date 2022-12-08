@@ -220,7 +220,7 @@ export default class NavBar extends Component {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="ListarIncorporaciones" className="nav-link">
+            <Link to="/ListarIncorporaciones" className="nav-link">
               <i className="far fa-circle nav-icon" />
               <p>Listar Incorporaciones</p>
             </Link>

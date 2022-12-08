@@ -1,9 +1,33 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
+import React, { Component, keys } from 'react';
 import NavBarInicio from '../NavBarInicio';
+//import ListarProductos from "./contenido/ListarProductos";
 
-export default class Inicio extends Component {
-  render() {
+export default function Inicio () {
+
+  var we;
+  const[img1,setImg1]=React.useState('')
+  const[img2,setImg2]=React.useState('')
+  const[img3,setImg3]=React.useState('')
+
+  React.useEffect(()=>{
+    fetch(`http://localhost:8080/busc`)
+    .then(res=>res.json())
+    .then((result)=>{
+      setImg1(result);
+      
+      
+    }
+  )
+  },[])
+
+
+
+ 
+
+  /* */
+
+  console.log(we)
+
     return (
       <div>
   <NavBarInicio/>
@@ -18,23 +42,31 @@ export default class Inicio extends Component {
     <div className="container">
       <div className="row">
         <div className="col-md-4">
-          <div className="s_display">
-            <img src="dist/img/s-display.jpg" alt />
-            <h2>MEN’S SHIRTS</h2>
-          </div>
+        
+        <div>
+          
         </div>
+
+        
+
+        </div>
+        
         <div className="col-md-4">
           <div className="s_display">
             <img src="dist/img/s-display1.jpg" alt />
             <h2>RUNNING SHOES</h2>
           </div>
         </div>
+
         <div className="col-md-4">
+        
           <div className="s_display">
-            <img src="dist/img/s-display2.jpg" alt />
+            <img ></img>
             <h2>MEN’S SHIRTS</h2>
           </div>
+          
         </div>
+ 
       </div>
     </div>
   </section>
@@ -597,4 +629,3 @@ export default class Inicio extends Component {
 
     );
   }
-}

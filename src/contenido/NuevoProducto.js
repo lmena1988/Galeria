@@ -1,5 +1,4 @@
 import * as React from 'react';
-import axios from "axios";
 import { Link } from 'react-router-dom';
 import Header from '../Header';
 import NavBar from '../NavBar';
@@ -9,8 +8,10 @@ export default function NuevoProducto() {
   const[sala,setSala]=React.useState('')
   const[artista,setArtista]=React.useState('')
   const[año,setAño]=React.useState('')
-  const[categoria,setCategoria]=React.useState('')
+  const[cat,setCat]=React.useState('')
   const[precio,setPrecio]=React.useState('')
+  const[pintura,setPintura]=React.useState('')
+
 
 
   const[usuario,setUsuario]=React.useState([])
@@ -33,19 +34,47 @@ export default function NuevoProducto() {
   )
   },[])
 
-  /*const[ttipo,setTtipo]=React.useState([])
+  const[precios,setPrecios]=React.useState([])
   React.useEffect(()=>{
-    fetch("http://localhost:8080/Tcontratos")
+    fetch("http://localhost:8080/precios")
     .then(res=>res.json())
     .then((result)=>{
-      setTtipo(result);
+      setPrecios(result);
     }
   )
-  },[])*/
+  },[])
+
+  const[categorias,setCategorias]=React.useState('')
+  React.useEffect(()=>{
+    fetch("http://localhost:8080/categorias")
+    .then(res=>res.json())
+    .then((result)=>{
+      setCategorias(result);
+    }
+  )
+  },[])
+
+  
+
+  const convertir=(archivos)=>{
+    Array.from(archivos).forEach(archivo=>{
+      var reader = new FileReader();
+      reader.readAsDataURL(archivo);
+      reader.onload=function(){
+        var arrayAuxiliar=[];
+        var base64 = reader.result;
+
+        arrayAuxiliar=base64.split(',');
+        console.log(arrayAuxiliar[1]);
+        setPintura(arrayAuxiliar[1]);
+      }
+      
+    })
+  }
 
   const handleClick=(e)=>{
     e.preventDefault()
-    const producto={nombres,sala,artista,año,categoria,precio}
+    const producto={nombres,sala,artista,año,cat,precio,pintura}
     console.log(producto)
     fetch("http://localhost:8080/producto",{
       method:"POST",
@@ -56,6 +85,7 @@ export default function NuevoProducto() {
       console.log("Estudiante añadido")
     })
   }
+
   
     return (
       <div>
@@ -109,7 +139,7 @@ export default function NuevoProducto() {
               <div className="form-group">
                 <label htmlFor="usuario_direccion" className="bmd-label-floating">Pintura</label>
                 <input type="file" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,190}" className="form-control" name="file" id="file" maxLength={190} 
-                /*onChange={(e)=>setImagen(e.target.value)}*/ />
+                onChange={(e)=>convertir(e.target.files)}/>
               </div>
             </div>
           </div>
@@ -141,10 +171,9 @@ export default function NuevoProducto() {
           <div className="row">
             <div className="col-12">
               <div className="form-group">
-                <select className="form-control" name="usuario_privilegio_reg" onChange={(e)=>setCategoria(e.target.value)}>
+                <select className="form-control" name="usuario_privilegio_reg" onChange={(e)=>setCat(e.target.value)}>
                   <option value selected disabled>Seleccione una categoría</option>
-                  <option>Categoría 1</option>
-
+                  
                 </select>
               </div>
             </div>
@@ -160,9 +189,10 @@ export default function NuevoProducto() {
               <div className="form-group">
                 <select className="form-control" name="usuario_privilegio_reg" onChange={(e)=>setPrecio(e.target.value)}>
                   <option value selected disabled>Seleccione un Precio</option>
-                  <option value={1}>Precio 1</option>
-                  <option value={2}>Precio 2</option>
-                  <option value={3}>Precio 3</option>
+                  {precios.map(contratop=>(
+                  <option>{contratop.valor}</option>
+                  ))
+                  }
                 </select>
               </div>
             </div>

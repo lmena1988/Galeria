@@ -11,12 +11,42 @@ export default function ActualizarContrato () {
   const { id } = useParams();
 
   const[descripcion,setDescripcion]=React.useState('')
-  const[tcontrato,setTcontrato]=React.useState('')
+  const[tipocontrato,setTipocontrato]=React.useState('')
   const[sala,setSala]=React.useState('')
   const[artista,setArtista]=React.useState('')
   const[plazo,setPlazo]=React.useState('')
   const[valor,setValor]=React.useState('')
   const[contrato,setContrato]=React.useState([])
+
+  const[usuario,setUsuario]=React.useState([])
+  React.useEffect(()=>{
+    fetch("http://localhost:8080/hola/4")
+    .then(res=>res.json())
+    .then((result)=>{
+      setUsuario(result);
+    }
+  )
+  },[])
+
+  const[ssala,setSsala]=React.useState([])
+  React.useEffect(()=>{
+    fetch("http://localhost:8080/salas")
+    .then(res=>res.json())
+    .then((result)=>{
+      setSsala(result);
+    }
+  )
+  },[])
+
+  const[ttipo,setTtipo]=React.useState([])
+  React.useEffect(()=>{
+    fetch("http://localhost:8080/Tcontratos")
+    .then(res=>res.json())
+    .then((result)=>{
+      setTtipo(result);
+    }
+  )
+  },[])
 
 
   useEffect(() => {
@@ -25,7 +55,7 @@ export default function ActualizarContrato () {
 
   const handleClick=(e)=>{
     e.preventDefault()
-    const contrato={descripcion,tcontrato,sala,artista,plazo,valor}
+    const contrato={descripcion,sala,artista,plazo,valor,tipocontrato}
     console.log(contrato)
     fetch(`http://localhost:8080/editc/${id}`,{
       method:"PUT",
@@ -93,33 +123,36 @@ export default function ActualizarContrato () {
           <div className="row">
             <div className="col-4">
               <div className="form-group">
-                <select className="form-control" name="usuario_privilegio_reg">
+                <select className="form-control" name="usuario_privilegio_reg" onChange={(e)=>setTipocontrato(e.target.value)}>
                   <option value selected disabled>Seleccionar Tipo Contrato</option>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
+                  {ttipo.map(ssalas=>(
+                  <option>{ssalas.ntipocontrato}</option>
+                  ))
+                } 
                 </select>
               </div>
             </div>
 
             <div className="col-4">
               <div className="form-group">
-                <select className="form-control" name="usuario_privilegio_reg">
+                <select className="form-control" name="usuario_privilegio_reg" onChange={(e)=>setSala(e.target.value)}>
                   <option value selected disabled>Seleccionar Sala</option>
-                  <option value={1}>Sala 1</option>
-                  <option value={2}>Sala 2</option>
-                  <option value={3}>Sala 3</option>
+                  {ssala.map(ssalas=>(
+                  <option>{ssalas.nsala}</option>
+                  ))
+                } 
                 </select>
               </div>
             </div>
 
             <div className="col-4">
               <div className="form-group">
-                <select className="form-control" name="usuario_privilegio_reg">
+                <select className="form-control" name="usuario_privilegio_reg" onChange={(e)=>setArtista(e.target.value)}>
                   <option value selected disabled>Seleccionar Artista</option>
-                  <option value={1}>Artista 1</option>
-                  <option value={2}>Artista 2</option>
-                  <option value={3}>Artista 3</option>
+                  {usuario.map(contratos=>(
+                  <option>{contratos.username}</option>
+                  ))
+                  } 
                 </select>
               </div>
             </div>
