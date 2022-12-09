@@ -1,8 +1,9 @@
 import axios from "axios";
-import React, {  useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Header from "../Header";
 import NavBar from "../NavBar";
+import Swal from "sweetalert2";
 
 export default function ActualizarContrato () {
   
@@ -63,7 +64,21 @@ export default function ActualizarContrato () {
       body:JSON.stringify(contrato)
 
     }).then(()=>{
-      console.log("Sala editada")
+      if(!contrato){
+
+        
+
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Cambios Hechos',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        return window.location = '/ListarContratos';
+        
+      }
     })
   }
 
@@ -180,11 +195,6 @@ export default function ActualizarContrato () {
         <button type="submit" className="btn btn-raised btn-success btn-sm" onClick={handleClick}><i className="fas fa-sync-alt" /> &nbsp; ACTUALIZAR</button>
       </p>
     </form>
-    <div className="alert alert-danger text-center" role="alert">
-      <p><i className="fas fa-exclamation-triangle fa-5x" /></p>
-      <h4 className="alert-heading">¡Ocurrió un error inesperado!</h4>
-      <p className="mb-0">Lo sentimos, no podemos mostrar la información solicitada debido a un error.</p>
-    </div>
   </div>
   </div>
 	  </div>

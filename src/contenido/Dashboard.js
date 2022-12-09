@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import * as React from 'react';
 import Header from '../Header';
 import NavBar from '../NavBar';
 

@@ -19,6 +19,7 @@ export default function NuevoTipoVenta () {
 
     }).then(()=>{
       console.log("Estudiante añadido")
+      return window.location = '/ListarTipoVentas';
     })
   }
     return (
@@ -31,9 +32,6 @@ export default function NuevoTipoVenta () {
     <h3 className="text-left">
       <i className="fas fa-clipboard-list fa-fw" /> &nbsp; NUEVO TIPO VENTA
     </h3>
-    <p className="text-justify">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit nostrum rerum animi natus beatae ex. Culpa blanditiis tempore amet alias placeat, obcaecati quaerat ullam, sunt est, odio aut veniam ratione.
-    </p>
   </div>
   <div className="container-fluid">
     <ul className="full-box list-unstyled page-nav-tabs">
@@ -76,7 +74,7 @@ export default function NuevoTipoVenta () {
       <p className="text-center" style={{marginTop: 40}}>
         <button type="reset" className="btn btn-raised btn-secondary btn-sm"><i className="fas fa-paint-roller" /> &nbsp; LIMPIAR</button>
         &nbsp; &nbsp;
-        <button type="submit" onClick={handleClick} className="btn btn-raised btn-info btn-sm"><i className="far fa-save" /> &nbsp; GUARDAR</button>
+        <a type="submit" href='/ListarTipoVentas' onClick={handleClick} className="btn btn-raised btn-info btn-sm"><i className="far fa-save" /> &nbsp; GUARDAR</a>
       </p>
     </form>
   </div>

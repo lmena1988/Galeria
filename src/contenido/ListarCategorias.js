@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import * as React from 'react';
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Header from '../Header';
 import NavBar from '../NavBar';
+import Swal from 'sweetalert2';
 
 export default function ListarCategorias() {
 
@@ -18,7 +19,24 @@ export default function ListarCategorias() {
   },[])
 
   const deleteCategoria = async (id) => {
-    await axios.delete(`http://localhost:8080/editt/${id}`);
+    Swal.fire({
+      title: 'Estás seguro de eliminar estos datos?',
+      text: "No podras revertir esto!",
+      icon: 'Advertencia',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+       axios.delete(`http://localhost:8080/editt/${id}`);
+    Swal.fire(
+      'Eliminados!',
+      'Tus datos han sido eliminados.',
+      'Completados'
+    )
+  }
+})
   };
     return (
         
@@ -52,7 +70,7 @@ export default function ListarCategorias() {
   {/* Content */}
   <div className="container-fluid">
     <div className="table-responsive">
-      <table className="table table-dark table-sm">
+      <table className="table table-secondary table-sm">
         <thead>
           <tr className="text-center roboto-medium">
             <th>#</th>

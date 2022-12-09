@@ -1,8 +1,8 @@
 import axios from "axios";
-import React, { useEffect, useState} from 'react';
-import { Link, Router, useNavigate, useParams } from 'react-router-dom';
-import Header from '../Header';
-import NavBar from '../NavBar';
+import React, { useEffect} from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import Swal from "sweetalert2";
+
 export default function ActualizarCategoria () {
   
   let navigate = useNavigate();
@@ -28,7 +28,21 @@ export default function ActualizarCategoria () {
       body:JSON.stringify(categoria)
 
     }).then(()=>{
-      console.log("Categoria editada")
+      if(!categoria){
+
+        
+
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Cambios Hechos',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        return window.location = '/ListarTipoCategorias';
+        
+      }
     })
   }
 
@@ -46,9 +60,6 @@ export default function ActualizarCategoria () {
     <h3 className="text-left">
       <i className="fas fa-clipboard-list fa-fw" /> &nbsp; ACTUALIZAR CATEGORÍA
     </h3>
-    <p className="text-justify">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit nostrum rerum animi natus beatae ex. Culpa blanditiis tempore amet alias placeat, obcaecati quaerat ullam, sunt est, odio aut veniam ratione.
-    </p>
   </div>
   <div className="container-fluid">
     <ul className="full-box list-unstyled page-nav-tabs">
@@ -98,11 +109,6 @@ export default function ActualizarCategoria () {
         <button type="submit" onClick={handleClick} className="btn btn-raised btn-success btn-sm"><i className="fas fa-sync-alt" /> &nbsp; ACTUALIZAR</button>
       </p>
     </form>
-    <div className="alert alert-danger text-center" role="alert">
-      <p><i className="fas fa-exclamation-triangle fa-5x" /></p>
-      <h4 className="alert-heading">¡Ocurrió un error inesperado!</h4>
-      <p className="mb-0">Lo sentimos, no podemos mostrar la información solicitada debido a un error.</p>
-    </div>
   </div>
   </div>
 	  </div>

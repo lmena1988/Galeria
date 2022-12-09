@@ -29,6 +29,7 @@ export default function NuevoUsuario() {
 
     }).then(()=>{
       console.log("Estudiante añadido")
+      return window.location = '/ListarUsuarios';
     })
   }
 
@@ -43,9 +44,6 @@ export default function NuevoUsuario() {
     <h3 className="text-left">
       <i className="fas fa-clipboard-list fa-fw" /> &nbsp; NUEVO USUARIO
     </h3>
-    <p className="text-justify">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit nostrum rerum animi natus beatae ex. Culpa blanditiis tempore amet alias placeat, obcaecati quaerat ullam, sunt est, odio aut veniam ratione.
-    </p>
   </div>
   <div className="container-fluid">
     <ul className="full-box list-unstyled page-nav-tabs">
@@ -171,7 +169,7 @@ export default function NuevoUsuario() {
       <p className="text-center" style={{marginTop: 40}}>
         <button type="reset" className="btn btn-raised btn-secondary btn-sm"><i className="fas fa-paint-roller" /> &nbsp; LIMPIAR</button>
         &nbsp; &nbsp;
-        <button type="submit" className="btn btn-raised btn-info btn-sm" onClick={handleClick}><i className="far fa-save" /> &nbsp; GUARDAR</button>
+        <a type="submit"  className="btn btn-raised btn-info btn-sm" onClick={handleClick}><i className="far fa-save" /> &nbsp; GUARDAR</a>
       </p>
     </form>
   </div>

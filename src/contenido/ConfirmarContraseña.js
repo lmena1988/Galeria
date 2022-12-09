@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as  Link } from 'react-router-dom';
 export default function ConfirmarContraseña () {
     return (
       <div>

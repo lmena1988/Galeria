@@ -1,4 +1,4 @@
-import React, { Component, keys } from 'react';
+import * as React from 'react';
 import NavBarInicio from '../NavBarInicio';
 //import ListarProductos from "./contenido/ListarProductos";
 

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import * as React from 'react';
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Header from '../Header';
 import NavBar from '../NavBar';
-
+import Swal from 'sweetalert2';
 
 export default function ListarUsuarios() {
   
@@ -18,7 +18,25 @@ export default function ListarUsuarios() {
   },[])
 
   const deleteUsuarios = async (id) => {
-    await axios.delete(`http://localhost:8080/edit/${id}`);
+    Swal.fire({
+      title: 'Estás seguro de eliminar estos datos?',
+      text: "No podras revertir esto!",
+      icon: 'Advertencia',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`http://localhost:8080/edit/${id}`);
+        Swal.fire(
+          'Eliminados!',
+          'Tus datos han sido eliminados.',
+          'Completados'
+        )
+      }
+    })
+    
   };
 
     return (
@@ -33,9 +51,6 @@ export default function ListarUsuarios() {
     <h3 className="text-left">
       <i className="fas fa-clipboard-list fa-fw" /> &nbsp; LISTA DE USUARIOS
     </h3>
-    <p className="text-justify">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit nostrum rerum animi natus beatae ex. Culpa blanditiis tempore amet alias placeat, obcaecati quaerat ullam, sunt est, odio aut veniam ratione.
-    </p>
   </div>
   <div className="container-fluid">
     <ul className="full-box list-unstyled page-nav-tabs">
@@ -53,7 +68,7 @@ export default function ListarUsuarios() {
   {/* Content */}
   <div className="container-fluid">
     <div className="table-responsive">
-      <table className="table table-dark table-sm">
+      <table className="table table-secondary table-sm">
         <thead>
           <tr className="text-center roboto-medium">
             <th>#</th>

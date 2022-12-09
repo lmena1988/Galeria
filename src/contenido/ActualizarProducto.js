@@ -3,6 +3,7 @@ import React, {  useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Header from '../Header';
 import NavBar from '../NavBar';
+import Swal from "sweetalert2";
 
 export default function ActualizarUsuario () {
   let navigate = useNavigate();
@@ -84,7 +85,21 @@ export default function ActualizarUsuario () {
       body:JSON.stringify(producto)
 
     }).then(()=>{
-      console.log("Producto editado")
+      if(!producto){
+
+        
+
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Cambios Hechos',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        return window.location = '/ListarProductos';
+        
+      }
     })
   }
 
@@ -236,11 +251,6 @@ export default function ActualizarUsuario () {
         <button type="submit" onClick={handleClick} className="btn btn-raised btn-success btn-sm"><i className="fas fa-sync-alt" /> &nbsp; ACTUALIZAR</button>
       </p>
     </form>
-    <div className="alert alert-danger text-center" role="alert">
-      <p><i className="fas fa-exclamation-triangle fa-5x" /></p>
-      <h4 className="alert-heading">¡Ocurrió un error inesperado!</h4>
-      <p className="mb-0">Lo sentimos, no podemos mostrar la información solicitada debido a un error.</p>
-    </div>
   </div>
   </div>
 	  </div>

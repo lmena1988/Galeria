@@ -83,6 +83,7 @@ export default function NuevoProducto() {
 
     }).then(()=>{
       console.log("Estudiante añadido")
+      return window.location = '/ListarProductos';
     })
   }
 
@@ -97,9 +98,6 @@ export default function NuevoProducto() {
     <h3 className="text-left">
       <i className="fas fa-clipboard-list fa-fw" /> &nbsp; NUEVO PRODUCTO
     </h3>
-    <p className="text-justify">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit nostrum rerum animi natus beatae ex. Culpa blanditiis tempore amet alias placeat, obcaecati quaerat ullam, sunt est, odio aut veniam ratione.
-    </p>
   </div>
   <div className="container-fluid">
     <ul className="full-box list-unstyled page-nav-tabs">
